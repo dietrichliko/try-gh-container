@@ -1,14 +1,22 @@
-name: Build ubi-flask container
+name: Build try-gh-container container
 on:
   - push
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build:
     name: Build image
     runs-on: ubuntu-latest
-    env:
-      IMAGE_NAME: try-gh-container
-      REGISTRY: ghcr.io/dietrichliko
+    
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+
     steps:
 
       - name: Clone the repository
